@@ -1,18 +1,8 @@
 <template>
-    <v-container>
         <v-form v-model="valid" lazy-validation ref="form">
             <v-card ma-1>
                 <v-layout row wrap pa-2>
-                    <v-flex xs3 pa-1>
-                        <v-text-field
-                                v-model="product.id"
-                                type="number"
-                                :rules="nameRules"
-                                label="id"
-                                required>
-                        </v-text-field>
-                    </v-flex>
-                    <v-flex xs3 pa-1>
+                    <v-flex xs4 pa-1>
                         <v-text-field
                                 v-model="product.name"
                                 :rules="[v => !!v || 'Item is required']"
@@ -20,14 +10,14 @@
                                 required>
                         </v-text-field>
                     </v-flex>
-                    <v-flex xs3 pa-1>
+                    <v-flex xs4 pa-1>
                         <v-text-field
                                 v-model="product.price"
                                 label="Price"
                                 required>
                         </v-text-field>
                     </v-flex>
-                    <v-flex xs3 pa-1>
+                    <v-flex xs4 pa-1>
                         <v-text-field
                                 v-model="product.quantity"
                                 label="Quantity"
@@ -40,7 +30,6 @@
                 </v-layout>
             </v-card>
         </v-form>
-    </v-container>
 </template>
 
 <script>
@@ -61,7 +50,7 @@
         methods: {
             addProduct() {
                 if (this.$refs.form.validate()) {
-                    ProductService.addProductToList(this.product.id);
+                    ProductService.addProductToList(this.product);
                 }
             }
         }

@@ -1,8 +1,19 @@
 <template>
     <v-layout row wrap>
-        <v-flex xs12 class="addProductForm">
-            <add-product></add-product>
-        </v-flex>
+        <v-container>
+            <v-flex xs12>
+                <v-btn block color="primary"
+                       @click="showAddForm = (showAddForm === 'Добавить продукт' ? 'Закрыть' : 'Добавить продукт')">
+                    {{showAddForm}}
+                </v-btn>
+            </v-flex>
+            <v-flex xs12>
+                <!--После закрытия не убивать компонент-->
+                <!--<keep-alive>-->
+                    <component :is="componentAddProduct"></component>
+                <!--</keep-alive>-->
+            </v-flex>
+        </v-container>
 
         <v-flex xs7 class="productList">
             <v-layout row wrap>
@@ -19,16 +30,25 @@
 </template>
 
 <script>
+    import '../../plugins/vuetify'
     import ProductDetail from "./ProductDetail";
     import ProductService from './ProductService'
     import ProductItem from "./ProductItem";
     import AddProduct from "./AddProduct";
+
+    let btnName = 'Добавить продукт';
     export default {
         name: "ProductList",
         components: {AddProduct, ProductDetail, ProductItem},
-        data(){
-            return{
-                productList:{}
+        data() {
+            return {
+                productList: {},
+                showAddForm: btnName
+            }
+        },
+        computed: {
+            componentAddProduct() {
+                return this.showAddForm === btnName ? '' : 'AddProduct';
             }
         },
         created() {
@@ -39,21 +59,25 @@
 
 <style scoped>
 
-    .addProductForm{
+    .addProductForm {
         margin: 15px 0;
     }
-    .productList{
+
+    .productList {
         padding: 15px;
     }
-    .productList .row{
+
+    .productList .row {
         /*background: #fff;*/
         /*padding: 15px;*/
     }
-    .productDetail{
+
+    .productDetail {
         /*background: #fff;*/
         padding: 19px;
     }
-    .product{
+
+    .product {
         padding: 4px;
     }
 </style>

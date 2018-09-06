@@ -18,8 +18,8 @@ export default new Vue({
             this.$emit("selectedProduct", product);
         },
         addProductToList(product){
-            alert(product);
-            this.productList.put(product);
+            product.id = this.productList.length + 1;
+            this.productList.push(product);
         }
     }
 });
